@@ -23,14 +23,6 @@ export default function Header() {
         <div className="flex items-center gap-4">
           {isSignedIn ? (
             <>
-              {/* Botón de configuración */}
-              <button 
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg p-2 transition-colors duration-200"
-                aria-label="Settings"
-              >
-                <Settings className="w-5 h-5 text-white" />
-              </button>
-
               {/* Información del usuario */}
               <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full pr-3 pl-1 py-1">
                 <UserButton 
