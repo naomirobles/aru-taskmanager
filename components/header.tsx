@@ -2,6 +2,8 @@
 
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 import { Clock, Settings } from "lucide-react";
+import { Calendar, GraduationCap } from "lucide-react";
+import ProfilePublicMetadataEditor from "./ProfilePublicMetadataEditor";
 
 export default function Header() {
   const { isSignedIn, user } = useUser();
@@ -25,13 +27,20 @@ export default function Header() {
             <>
               {/* Información del usuario */}
               <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full pr-3 pl-1 py-1">
-                <UserButton 
-                  appearance={{
-                    elements: {
-                      avatarBox: "w-8 h-8"
-                    }
-                  }}
-                />
+
+                <UserButton>
+                  <UserButton.UserProfilePage
+                    label="Datos públicos"
+                    labelIcon={<Calendar className="w-4 h-4" />}
+                    url="public-metadata"
+                  >
+                    <div className="p-4">
+                      <ProfilePublicMetadataEditor />
+                    </div>
+                  </UserButton.UserProfilePage>
+                </UserButton>
+                )
+
                 <span className="text-white font-medium text-sm">
                   {user?.username || user?.firstName || "Usuario"}
                 </span>
@@ -45,7 +54,7 @@ export default function Header() {
                   Iniciar Sesión
                 </button>
               </SignInButton>
-              
+
               <SignUpButton mode="modal">
                 <button className="bg-white hover:bg-white/90 text-indigo-600 px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg">
                   Registrarse

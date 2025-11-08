@@ -47,6 +47,8 @@ export const registerUser = async (formData: FormData) => {
     await client.users.updateUser(userId, {
       publicMetadata: {
         onboardingComplete: true,
+        birthdate: birthdate,
+        academic_level: academicLevel
       },
     })
 
