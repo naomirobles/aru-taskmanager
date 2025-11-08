@@ -43,8 +43,9 @@ export const registerUser = async (formData: FormData) => {
       },
     })
 
-    // Actualizar metadata en Clerk para marcar onboarding como completo
-    await client.users.updateUser(userId, {
+    // CORRECCIÓN: Usar updateUserMetadata en lugar de updateUser
+    // Esto hace un MERGE del metadata existente en lugar de sobrescribirlo
+    await client.users.updateUserMetadata(userId, {
       publicMetadata: {
         onboardingComplete: true,
         birthdate: birthdate,

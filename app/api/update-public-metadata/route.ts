@@ -1,6 +1,7 @@
 // app/api/update-public-metadata/route.ts
 import { NextResponse } from 'next/server'
 import { auth, clerkClient } from '@clerk/nextjs/server'
+import { db } from '@/lib/db'
 
 export async function POST(req: Request) {
   try {
@@ -22,11 +23,22 @@ export async function POST(req: Request) {
     }
 
     const client = await clerkClient()
-    const updated = await client.users.updateUser(userId, {
+    const updated = await client.users.updateUserMetadata(userId, {
       publicMetadata: {
         ...(publicMetadata || {})
       }
     })
+
+    await db.user.update({
+          where: {
+            clerkUserId: userId,
+          },
+          data: {
+            birthdate: new Date(publicMetadata.birthdate),
+            academic_level: publicMetadata.academic_level,
+            updated_at: new Date(),
+          }
+        })
 
     return NextResponse.json({ ok: true, publicMetadata: updated.publicMetadata })
   } catch (err: any) {
