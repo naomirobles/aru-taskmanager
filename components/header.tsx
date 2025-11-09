@@ -39,7 +39,7 @@ export default function Header() {
                     </div>
                   </UserButton.UserProfilePage>
                 </UserButton>
-                )
+          
 
                 <span className="text-white font-medium text-sm">
                   {user?.username || user?.firstName || "Usuario"}

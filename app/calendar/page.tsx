@@ -56,30 +56,37 @@ async function getCategories(userId: string) {
   return categories;
 }
 
-export default async function CalendarPage({ searchParams }: PageProps) {
-  const { userId } = await auth()
+export default async function CalendarPage(props: PageProps) {
+  // ✅ 1. Esperar a que se resuelva la promesa de searchParams
+  const searchParams = await props.searchParams;
 
+  // ✅ 2. Obtener el usuario autenticado
+  const { userId } = await auth();
 
   if (!userId) {
     redirect("/sign-in");
   }
 
+  // ✅ 3. Crear fecha actual correctamente
   const now = new Date();
-  const month = searchParams.month ? parseInt(searchParams.month) : now.getMonth();
-  const year = searchParams.year ? parseInt(searchParams.year) : now.getFullYear();
 
-  // Fetch tasks and categories in parallel
+  // ✅ 4. Obtener mes y año desde los params o usar los valores actuales
+  const month = searchParams?.month ? parseInt(searchParams.month) : now.getMonth();
+  const year = searchParams?.year ? parseInt(searchParams.year) : now.getFullYear();
+
+  // ✅ 5. Obtener datos en paralelo
   const [tasks, categories] = await Promise.all([
     getTasks(userId, month, year),
     getCategories(userId),
   ]);
 
+  // ✅ 6. Renderizar la vista
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
       <div className="container mx-auto p-6">
-        <CalendarView 
-          initialTasks={tasks} 
-          initialMonth={month} 
+        <CalendarView
+          initialTasks={tasks}
+          initialMonth={month}
           initialYear={year}
           categories={categories}
         />
