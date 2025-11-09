@@ -6,6 +6,7 @@ import { Task, Category, SavedRecommendation } from "@prisma/client";
 import { Plus, Search, Filter } from "lucide-react";
 import { ListViewSection } from "./ListViewSection";
 import { CategoryModal } from "./CategoryModal";
+import { CategoryEditModal } from "./CategoryEditModal";
 
 type TaskWithRelations = Task & {
   category: Category | null;
@@ -30,6 +31,7 @@ export function ListView({
     categories.map(c => c.id)
   );
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [categoryToEdit, setCategoryToEdit] = useState<Category | null>(null);
 
   // Filtrar tareas por búsqueda y categorías seleccionadas
   const filteredTasks = useMemo(() => {
@@ -65,6 +67,10 @@ export function ListView({
         return [...prev, categoryId];
       }
     });
+  };
+
+  const handleCategoryClick = (category: Category) => {
+    setCategoryToEdit(category);
   };
 
   return (
@@ -172,6 +178,7 @@ export function ListView({
                   category={category}
                   tasks={categoryTasks}
                   onTaskClick={onTaskClick}
+                  onCategoryClick={handleCategoryClick}
                 />
               );
             })}
@@ -200,6 +207,15 @@ export function ListView({
         isOpen={isCategoryModalOpen}
         onClose={() => setIsCategoryModalOpen(false)}
       />
+
+      {/* Modal de editar categoría */}
+      {categoryToEdit && (
+        <CategoryEditModal
+          isOpen={!!categoryToEdit}
+          onClose={() => setCategoryToEdit(null)}
+          category={categoryToEdit}
+        />
+      )}
     </div>
   );
 }
