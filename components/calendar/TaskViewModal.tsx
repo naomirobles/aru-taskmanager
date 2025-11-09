@@ -4,9 +4,10 @@
 import { useState, useTransition, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { updateTask, toggleTaskComplete, deleteTask } from "@/app/actions/task_actions";
-import { createRecommendation, deleteRecommendation } from "@/app/actions/recommendation_actions";
+import { deleteRecommendation } from "@/app/actions/recommendation_actions";
+import { generateRecommendations } from "@/app/actions/ai-actions";
 import { Task, Category, SavedRecommendation } from "@prisma/client";
-import { X, Calendar as CalendarIcon, BookmarkPlus, Bookmark, Trash2, Plus, Sparkles } from "lucide-react";
+import { X, Calendar as CalendarIcon, BookmarkPlus, Bookmark, Trash2, Sparkles, Loader2, ExternalLink, Youtube, FileText, GraduationCap } from "lucide-react";
 import { CategorySelector } from "./CategorySelector";
 
 type TaskWithRelations = Task & {
@@ -25,6 +26,7 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isEditing, setIsEditing] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   
   // Estado local para el toggle de completado
   const [isCompleted, setIsCompleted] = useState(task.is_completed);
@@ -37,8 +39,6 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
     due_date: task.due_date ? new Date(task.due_date).toISOString().split('T')[0] : "",
   });
   const [recommendations, setRecommendations] = useState(task.saved_recommendations);
-  const [newRecommendation, setNewRecommendation] = useState("");
-  const [isAddingRecommendation, setIsAddingRecommendation] = useState(false);
 
   // Sincronizar el estado cuando cambie la prop task
   useEffect(() => {
@@ -66,17 +66,14 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
   }, [isOpen]);
 
   const handleToggleComplete = async () => {
-    // Actualizar UI optimistamente
     setIsCompleted(!isCompleted);
     
     startTransition(async () => {
       const result = await toggleTaskComplete(task.id);
       if (result.error) {
-        // Revertir si hay error
         setIsCompleted(isCompleted);
         alert(result.error);
       } else {
-        // Refrescar para sincronizar con el servidor
         router.refresh();
       }
     });
@@ -123,20 +120,28 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
     });
   };
 
-  const handleAddRecommendation = async () => {
-    if (!newRecommendation.trim()) return;
-
-    startTransition(async () => {
-      const result = await createRecommendation(task.id, newRecommendation.trim());
+  const handleGenerateRecommendations = async () => {
+    setIsGenerating(true);
+    
+    try {
+      const result = await generateRecommendations(
+        task.id, 
+        task.title, 
+        task.description || undefined
+      );
+      
       if (result.error) {
         alert(result.error);
-      } else if (result.recommendation) {
-        setRecommendations([...recommendations, result.recommendation]);
-        setNewRecommendation("");
-        setIsAddingRecommendation(false);
+      } else if (result.recommendations) {
+        setRecommendations([...recommendations, ...result.recommendations]);
         router.refresh();
       }
-    });
+    } catch (error) {
+      console.error("Error generating recommendations:", error);
+      alert("Error al generar recomendaciones");
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handleDeleteRecommendation = async (recommendationId: string) => {
@@ -149,6 +154,19 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
         router.refresh();
       }
     });
+  };
+
+  // Función para obtener el icono según el tipo
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case 'video':
+        return <Youtube className="w-4 h-4 text-red-500" />;
+      case 'academic':
+        return <GraduationCap className="w-4 h-4 text-blue-500" />;
+      case 'article':
+      default:
+        return <FileText className="w-4 h-4 text-green-500" />;
+    }
   };
 
   if (!isOpen) return null;
@@ -281,7 +299,7 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                     value={formData.start_date}
                     onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
                     disabled={!isEditing}
-                    className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed [&::-webkit-calendar-picker-indicator]:opacity-0"
                   />
                   <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-300 pointer-events-none" />
                 </div>
@@ -298,7 +316,7 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                     value={formData.due_date}
                     onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
                     disabled={!isEditing}
-                    className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed [&::-webkit-calendar-picker-indicator]:opacity-0"
                   />
                   <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-300 pointer-events-none" />
                 </div>
@@ -364,20 +382,51 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
               <h3 className="text-lg font-semibold text-purple-400">
                 Recomendaciones
               </h3>
-              <Sparkles className="w-5 h-5 text-purple-400" />
+              <button
+                onClick={handleGenerateRecommendations}
+                disabled={isGenerating || isPending}
+                className="flex items-center gap-2 px-3 py-1.5 bg-purple-500 text-white text-sm rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isGenerating ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Generando...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    Generar con IA
+                  </>
+                )}
+              </button>
             </div>
 
             <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
-              {/* Mensaje de construcción */}
-              <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center">
-                <Sparkles className="w-8 h-8 text-purple-400 mx-auto mb-2" />
-                <p className="text-sm text-purple-600 font-medium">
-                  IA en construcción
-                </p>
-                <p className="text-xs text-purple-400 mt-1">
-                  Pronto podrás obtener recomendaciones inteligentes
-                </p>
-              </div>
+              {/* Mensaje de estado inicial */}
+              {recommendations.length === 0 && !isGenerating && (
+                <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center">
+                  <Sparkles className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+                  <p className="text-sm text-purple-600 font-medium">
+                    Sin recomendaciones
+                  </p>
+                  <p className="text-xs text-purple-400 mt-1">
+                    Haz clic en "Generar con IA" para obtener recursos útiles
+                  </p>
+                </div>
+              )}
+
+              {/* Indicador de carga */}
+              {isGenerating && (
+                <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center">
+                  <Loader2 className="w-8 h-8 text-purple-400 mx-auto mb-2 animate-spin" />
+                  <p className="text-sm text-purple-600 font-medium">
+                    Buscando recursos...
+                  </p>
+                  <p className="text-xs text-purple-400 mt-1">
+                    Esto puede tomar unos segundos
+                  </p>
+                </div>
+              )}
 
               {/* Recomendaciones existentes */}
               {recommendations.map((rec) => (
@@ -385,9 +434,46 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                   key={rec.id}
                   className="bg-purple-50/50 border border-purple-100 rounded-xl p-3 group hover:bg-purple-50 transition-colors"
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="text-sm text-gray-700 flex-1">{rec.description}</p>
-                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex gap-3">
+                    {/* Thumbnail si existe */}
+                    {rec.thumbnail_url && (
+                      <div className="flex-shrink-0">
+                        <img
+                          src={rec.thumbnail_url}
+                          alt={rec.title}
+                          className="w-20 h-14 object-cover rounded-lg"
+                        />
+                      </div>
+                    )}
+                    
+                    <div className="flex-1 min-w-0">
+                      {/* Título como link */}
+                      <a
+                        href={rec.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium text-purple-600 hover:text-purple-700 flex items-start gap-2 group/link mb-1"
+                      >
+                        <span className="flex-1 line-clamp-2">{rec.title}</span>
+                        <ExternalLink className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 opacity-60 group-hover/link:opacity-100" />
+                      </a>
+                      
+                      {/* Descripción si existe */}
+                      {rec.description && (
+                        <p className="text-xs text-gray-600 line-clamp-2 mb-2">
+                          {rec.description}
+                        </p>
+                      )}
+                      
+                      {/* Metadata */}
+                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                        {getTypeIcon(rec.type)}
+                        <span>{rec.source}</span>
+                      </div>
+                    </div>
+
+                    {/* Botón eliminar */}
+                    <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => handleDeleteRecommendation(rec.id)}
                         className="p-1 hover:bg-red-100 rounded text-red-600"
@@ -399,46 +485,6 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                   </div>
                 </div>
               ))}
-
-              {/* Agregar nueva recomendación */}
-              {isAddingRecommendation ? (
-                <div className="space-y-2">
-                  <textarea
-                    value={newRecommendation}
-                    onChange={(e) => setNewRecommendation(e.target.value)}
-                    placeholder="Escribe una recomendación..."
-                    className="w-full px-3 py-2 text-sm bg-white border border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-300 resize-none"
-                    rows={3}
-                    autoFocus
-                  />
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => {
-                        setIsAddingRecommendation(false);
-                        setNewRecommendation("");
-                      }}
-                      className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                    >
-                      Cancelar
-                    </button>
-                    <button
-                      onClick={handleAddRecommendation}
-                      disabled={isPending || !newRecommendation.trim()}
-                      className="flex-1 px-3 py-2 text-sm bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50"
-                    >
-                      Agregar
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <button
-                  onClick={() => setIsAddingRecommendation(true)}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 text-purple-500 border border-purple-200 border-dashed rounded-xl hover:bg-purple-50 transition-colors"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span className="text-sm font-medium">Añadir recomendación</span>
-                </button>
-              )}
             </div>
           </div>
         </div>
