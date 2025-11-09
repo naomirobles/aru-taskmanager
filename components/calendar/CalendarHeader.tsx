@@ -1,7 +1,7 @@
 // components/calendar/CalendarHeader.tsx
 "use client";
 
-import { ChevronLeft, ChevronRight, Plus, Calendar } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, Calendar, List } from "lucide-react";
 
 interface CalendarHeaderProps {
   currentMonth: number;
@@ -31,28 +31,41 @@ export function CalendarHeader({
     <div className="bg-gradient-to-r from-purple-300 to-purple-300 px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <button
-            onClick={onPreviousMonth}
-            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-            aria-label="Mes anterior"
-          >
-            <ChevronLeft className="w-5 h-5 text-white" />
-          </button>
+          {view === "month" && (
+            <>
+              <button
+                onClick={onPreviousMonth}
+                className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+                aria-label="Mes anterior"
+              >
+                <ChevronLeft className="w-5 h-5 text-white" />
+              </button>
 
-          <div className="flex items-center gap-3">
-            <Calendar className="w-6 h-6 text-white" />
-            <h1 className="text-2xl font-bold text-white">
-              {MONTHS[currentMonth]} {currentYear}
-            </h1>
-          </div>
+              <div className="flex items-center gap-3">
+                <Calendar className="w-6 h-6 text-white" />
+                <h1 className="text-2xl font-bold text-white">
+                  {MONTHS[currentMonth]} {currentYear}
+                </h1>
+              </div>
 
-          <button
-            onClick={onNextMonth}
-            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-            aria-label="Mes siguiente"
-          >
-            <ChevronRight className="w-5 h-5 text-white" />
-          </button>
+              <button
+                onClick={onNextMonth}
+                className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+                aria-label="Mes siguiente"
+              >
+                <ChevronRight className="w-5 h-5 text-white" />
+              </button>
+            </>
+          )}
+
+          {view === "week" && (
+            <div className="flex items-center gap-3">
+              <List className="w-6 h-6 text-white" />
+              <h1 className="text-2xl font-bold text-white">
+                Lista de Tareas
+              </h1>
+            </div>
+          )}
         </div>
 
         <div className="flex items-center gap-3">
