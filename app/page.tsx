@@ -1,4 +1,4 @@
-// app/calendar/page.tsx
+// app/page.tsx
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { CalendarView } from "@/components/calendar/CalendarView";
@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 import { startOfMonth, endOfMonth, addMonths } from "date-fns";
 
 interface PageProps {
-  searchParams: { month?: string; year?: string };
+  searchParams: Promise<{ month?: string; year?: string }>;
 }
 
 async function getTasks(userId: string, month: number, year: number) {
@@ -56,9 +56,9 @@ async function getCategories(userId: string) {
   return categories;
 }
 
-export default async function CalendarPage({ searchParams }: PageProps) {
-  const { userId } = await auth()
-
+export default async function HomePage(props: PageProps) {
+  const { userId } = await auth();
+  const searchParams = await props.searchParams;
 
   if (!userId) {
     redirect("/sign-in");
