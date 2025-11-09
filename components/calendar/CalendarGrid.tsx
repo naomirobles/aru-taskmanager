@@ -11,7 +11,10 @@ import {
   isSameMonth, 
   isSameDay, 
   isToday, 
-  format 
+  format,
+  startOfDay,
+  isWithinInterval,
+  parseISO
 } from "date-fns";
 import { Task, Category, SavedRecommendation } from "@prisma/client";
 import { CalendarTask } from "./CalendarTask";
@@ -50,17 +53,28 @@ export function CalendarGrid({
   }, [currentMonth, currentYear]);
 
   const getTasksForDay = (day: Date) => {
+    const dayStart = startOfDay(day);
+    
     return tasks.filter((task) => {
-      const taskStart = task.start_date ? new Date(task.start_date) : null;
-      const taskDue = task.due_date ? new Date(task.due_date) : null;
+      const taskStart = task.start_date ? startOfDay(new Date(task.start_date)) : null;
+      const taskDue = task.due_date ? startOfDay(new Date(task.due_date)) : null;
 
+      // Si tiene ambas fechas, verificar si el día está en el rango (inclusive)
       if (taskStart && taskDue) {
-        return day >= taskStart && day <= taskDue;
-      } else if (taskStart) {
-        return isSameDay(day, taskStart);
-      } else if (taskDue) {
-        return isSameDay(day, taskDue);
+        return isWithinInterval(dayStart, {
+          start: taskStart,
+          end: taskDue
+        });
+      } 
+      // Si solo tiene fecha de inicio
+      else if (taskStart) {
+        return isSameDay(dayStart, taskStart);
+      } 
+      // Si solo tiene fecha de fin
+      else if (taskDue) {
+        return isSameDay(dayStart, taskDue);
       }
+      
       return false;
     });
   };

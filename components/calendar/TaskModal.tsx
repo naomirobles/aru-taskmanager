@@ -147,7 +147,7 @@ export function TaskModal({ isOpen, onClose, selectedDate, categories }: TaskMod
             />
           </div>
 
-          {/* Fechas */}
+          {/* Fechas */}  
           <div className="space-y-4">
             {/* Fecha de inicio */}
             <div className="flex items-center gap-4">
@@ -159,7 +159,7 @@ export function TaskModal({ isOpen, onClose, selectedDate, categories }: TaskMod
                   type="date"
                   value={formData.start_date}
                   onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all [&::-webkit-calendar-picker-indicator]:opacity-0"
                 />
                 <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-300 pointer-events-none" />
               </div>
@@ -175,7 +175,7 @@ export function TaskModal({ isOpen, onClose, selectedDate, categories }: TaskMod
                   type="date"
                   value={formData.due_date}
                   onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all [&::-webkit-calendar-picker-indicator]:opacity-0"
                 />
                 <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-300 pointer-events-none" />
               </div>

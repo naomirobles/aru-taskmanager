@@ -25,6 +25,10 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isEditing, setIsEditing] = useState(false);
+  
+  // Estado local para el toggle de completado
+  const [isCompleted, setIsCompleted] = useState(task.is_completed);
+  
   const [formData, setFormData] = useState({
     title: task.title,
     category_id: task.category_id,
@@ -35,6 +39,19 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
   const [recommendations, setRecommendations] = useState(task.saved_recommendations);
   const [newRecommendation, setNewRecommendation] = useState("");
   const [isAddingRecommendation, setIsAddingRecommendation] = useState(false);
+
+  // Sincronizar el estado cuando cambie la prop task
+  useEffect(() => {
+    setIsCompleted(task.is_completed);
+    setFormData({
+      title: task.title,
+      category_id: task.category_id,
+      description: task.description || "",
+      start_date: task.start_date ? new Date(task.start_date).toISOString().split('T')[0] : "",
+      due_date: task.due_date ? new Date(task.due_date).toISOString().split('T')[0] : "",
+    });
+    setRecommendations(task.saved_recommendations);
+  }, [task]);
 
   useEffect(() => {
     if (isOpen) {
@@ -49,11 +66,17 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
   }, [isOpen]);
 
   const handleToggleComplete = async () => {
+    // Actualizar UI optimistamente
+    setIsCompleted(!isCompleted);
+    
     startTransition(async () => {
       const result = await toggleTaskComplete(task.id);
       if (result.error) {
+        // Revertir si hay error
+        setIsCompleted(isCompleted);
         alert(result.error);
       } else {
+        // Refrescar para sincronizar con el servidor
         router.refresh();
       }
     });
@@ -165,15 +188,16 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
             <div className="flex items-center gap-2 px-4 py-2 border border-purple-200 rounded-full">
               <span className="text-sm text-purple-400">Completada</span>
               <button
+                type="button"
                 onClick={handleToggleComplete}
                 disabled={isPending}
                 className={`relative w-12 h-6 rounded-full transition-colors ${
-                  task.is_completed ? "bg-purple-500" : "bg-gray-300"
+                  isCompleted ? "bg-purple-500" : "bg-gray-300"
                 }`}
               >
                 <div
                   className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${
-                    task.is_completed ? "translate-x-6" : ""
+                    isCompleted ? "translate-x-6" : ""
                   }`}
                 />
               </button>
@@ -207,7 +231,12 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                   }
                 />
               ) : (
-                <div className="flex items-center gap-2 px-4 py-3 bg-green-100 rounded-xl">
+                <div 
+                  className="flex items-center gap-2 px-4 py-3 rounded-xl"
+                  style={{ 
+                    backgroundColor: task.category?.color ? `${task.category.color}20` : '#10B98120'
+                  }}
+                >
                   <div
                     className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: task.category?.color || "#10B981" }}
