@@ -33,6 +33,8 @@ export default function RootLayout({
         <ClerkProviderWrapper>
           <Header />
           {children}
+          redirect("/calendar");
+
         </ClerkProviderWrapper>
       </body>
     </html>

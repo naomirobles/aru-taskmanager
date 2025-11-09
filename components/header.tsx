@@ -9,7 +9,7 @@ export default function Header() {
   const { isSignedIn, user } = useUser();
 
   return (
-    <header className="bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-4 shadow-lg">
+    <header className="bg-gradient-to-r from-purple-400 to-purple-500 px-6 py-4 shadow-lg">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo y título */}
         <div className="flex items-center gap-3">

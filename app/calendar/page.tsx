@@ -11,7 +11,7 @@ interface PageProps {
 
 async function getTasks(userId: string, month: number, year: number) {
   const startDate = startOfMonth(new Date(year, month));
-  const endDate = endOfMonth(addMonths(startDate, 1)); // Get next month too for spanning tasks
+  const endDate = endOfMonth(addMonths(startDate, 1));
 
   const tasks = await db.task.findMany({
     where: {
@@ -33,7 +33,7 @@ async function getTasks(userId: string, month: number, year: number) {
     },
     include: {
       category: true,
-      saved_recommendations: true,
+      saved_recommendations: true, // ← Agregar esto
     },
     orderBy: {
       start_date: "asc",
