@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarGrid } from "./CalendarGrid";
+import { ListView } from "./ListView";
 import { TaskModal } from "./TaskModal";
 import { TaskViewModal } from "./TaskViewModal";
 import { Task, Category, SavedRecommendation } from "@prisma/client";
@@ -74,14 +75,23 @@ export function CalendarView({
         onAddTask={() => handleAddTask()}
       />
 
-      <CalendarGrid
-        tasks={initialTasks}
-        currentMonth={currentMonth}
-        currentYear={currentYear}
-        view={view}
-        onAddTask={handleAddTask}
-        onTaskClick={handleTaskClick}
-      />
+      {view === "month" ? (
+        <CalendarGrid
+          tasks={initialTasks}
+          currentMonth={currentMonth}
+          currentYear={currentYear}
+          view={view}
+          onAddTask={handleAddTask}
+          onTaskClick={handleTaskClick}
+        />
+      ) : (
+        <ListView
+          tasks={initialTasks}
+          categories={categories}
+          onAddTask={() => handleAddTask()}
+          onTaskClick={handleTaskClick}
+        />
+      )}
 
       {isTaskModalOpen && (
         <TaskModal

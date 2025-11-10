@@ -113,7 +113,7 @@ export async function updateCategory(categoryId: string, name: string, color?: s
       where: { id: categoryId },
       data: {
         name,
-        color: color || existingCategory.user_id, // Keep old color if not provided
+        ...(color && { color }), // Only update color if provided
       },
     });
 
