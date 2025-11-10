@@ -32,7 +32,7 @@ export async function generateRecommendations(taskId: string, taskTitle: string,
 
     // Construir el contexto para la IA
     const context = taskDescription 
-      ? `Título: ${taskTitle}\nDescripción: ${taskDescription}`
+      ? `Título: ${taskTitle}`
       : `Título: ${taskTitle}`;
 
     const prompt = `Realiza una búsqueda en línea de fuentes confiables (artículos académicos, libros, vídeos de YouTube con buena reputación) sobre: ${context}
