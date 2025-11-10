@@ -155,7 +155,7 @@ export function ListView({
         </div>
 
         {/* Área principal de tareas */}
-        <div className="flex-1">
+        <div className="flex-1 min-h-[calc(100vh-8rem)] flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-purple-900">List View</h2>
             <button 
@@ -166,8 +166,8 @@ export function ListView({
             </button>
           </div>
 
-          {/* Secciones por categoría */}
-          <div className="space-y-6">
+          {/* Secciones por categoría - Grid Responsivo */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 auto-rows-min content-start flex-1">
             {Array.from(groupedTasks.entries()).map(([categoryId, categoryTasks]) => {
               const category = categories.find(c => c.id === categoryId);
               if (!category) return null;
@@ -184,7 +184,7 @@ export function ListView({
             })}
 
             {groupedTasks.size === 0 && (
-              <div className="text-center py-16">
+              <div className="w-full text-center py-16">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
                   <Search className="w-8 h-8 text-purple-400" />
                 </div>
