@@ -30,6 +30,11 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    /* Add a custom header to all requests */
+    extraHTTPHeaders: {
+      'X-Playwright-Test': '1',
+    },
   },
 
   /* Configure projects for major browsers */
