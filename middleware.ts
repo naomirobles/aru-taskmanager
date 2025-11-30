@@ -2,10 +2,14 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 const isOnboardingRoute = createRouteMatcher(['/onboarding'])
-const isPublicRoute = createRouteMatcher(['/public-route-example'])
+const isPublicRoute = createRouteMatcher(['/', '/sign-in(.*)', '/sign-up(.*)'])
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { isAuthenticated, sessionClaims, redirectToSignIn } = await auth()
+
+  console.log(`Middleware processing: ${req.nextUrl.pathname}`)
+  console.log(`Auth status: ${isAuthenticated}`)
+  console.log(`Onboarding status: ${sessionClaims?.metadata?.onboardingComplete}`)
 
   // For users visiting /onboarding, don't try to redirect
   if (isAuthenticated && isOnboardingRoute(req)) {
@@ -24,6 +28,8 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
 
   // If the user is logged in and the route is protected, let them view.
   if (isAuthenticated && !isPublicRoute(req)) return NextResponse.next()
+
+  return NextResponse.next()
 })
 
 export const config = {

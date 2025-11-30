@@ -28,7 +28,7 @@ export function CalendarHeader({
   onAddTask,
 }: CalendarHeaderProps) {
   return (
-    <div className="bg-gradient-to-r from-purple-300 to-purple-300 px-6 py-4">
+    <div className="bg-gradient-to-r from-[#8b7dd8] to-[#9d8de8] px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           {view === "month" && (
@@ -74,7 +74,7 @@ export function CalendarHeader({
               onClick={() => onViewChange("month")}
               className={`px-4 py-2 rounded-md transition-colors ${
                 view === "month"
-                  ? "bg-white text-purple-600"
+                  ? "bg-white text-[#8b7dd8]"
                   : "text-white hover:bg-white/20"
               }`}
             >
@@ -84,7 +84,7 @@ export function CalendarHeader({
               onClick={() => onViewChange("week")}
               className={`px-4 py-2 rounded-md transition-colors ${
                 view === "week"
-                  ? "bg-white text-purple-600"
+                  ? "bg-white text-[#8b7dd8]"
                   : "text-white hover:bg-white/20"
               }`}
             >
@@ -94,7 +94,7 @@ export function CalendarHeader({
 
           <button
             onClick={onAddTask}
-            className="flex items-center gap-2 bg-white text-purple-600 px-4 py-2 rounded-lg hover:bg-purple-50 transition-colors font-medium"
+            className="flex items-center gap-2 bg-white text-[#8b7dd8] px-4 py-2 rounded-lg hover:bg-[#f8f7ff] transition-colors font-medium"
           >
             <Plus className="w-5 h-5" />
             Añadir tarea

@@ -78,7 +78,7 @@ export function ListView({
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar izquierdo */}
         <div className="w-full lg:w-64 flex-shrink-0">
-          <div className="bg-purple-100/50 rounded-2xl p-4 space-y-4">
+          <div className="bg-[#fcfbfe] border border-gray-100 rounded-2xl p-4 space-y-4">
             {/* Botón Nueva Tarea */}
             <button
               onClick={onAddTask}

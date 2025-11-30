@@ -9,7 +9,7 @@ export default function Header() {
   const { isSignedIn, user } = useUser();
 
   return (
-    <header className="bg-gradient-to-r from-purple-400 to-purple-500 px-6 py-4 shadow-lg">
+    <header className="bg-gradient-to-r from-[#8b7dd8] to-[#9d8de8] px-6 py-4 shadow-lg">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo y título */}
         <div className="flex items-center gap-3">
@@ -49,14 +49,14 @@ export default function Header() {
           ) : (
             <>
               {/* Botones de autenticación cuando NO está logueado */}
-              <SignInButton mode="modal">
+              <SignInButton mode="modal" forceRedirectUrl="/calendar">
                 <button className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200">
                   Iniciar Sesión
                 </button>
               </SignInButton>
 
-              <SignUpButton mode="modal">
-                <button className="bg-white hover:bg-white/90 text-indigo-600 px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg">
+              <SignUpButton mode="modal" forceRedirectUrl="/calendar">
+                <button className="bg-white hover:bg-white/90 text-[#8b7dd8] px-6 py-2 rounded-lg font-medium transition-colors duration-200 shadow-lg">
                   Registrarse
                 </button>
               </SignUpButton>

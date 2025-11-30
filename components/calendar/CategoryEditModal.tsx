@@ -94,10 +94,10 @@ export function CategoryEditModal({ isOpen, onClose, category }: CategoryEditMod
         {/* Header */}
         <div className="flex items-center justify-center pt-8 pb-6 relative">
           <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-semibold text-purple-500">
+            <h2 className="text-2xl font-semibold text-[#8b7dd8]">
               Editar Categoría
             </h2>
-            <Palette className="w-6 h-6 text-purple-500" />
+            <Palette className="w-6 h-6 text-[#8b7dd8]" />
           </div>
           <button
             onClick={onClose}
@@ -112,14 +112,14 @@ export function CategoryEditModal({ isOpen, onClose, category }: CategoryEditMod
         <form onSubmit={handleSubmit} className="px-8 pb-8 space-y-6">
           {/* Nombre de la categoría */}
           <div>
-            <label className="block text-sm text-purple-400 mb-2">
+            <label className="block text-sm text-[#8b7dd8] mb-2">
               Nombre de la categoría
             </label>
             <input
               type="text"
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
-              className="w-full px-4 py-3 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all"
               placeholder="Ej: Trabajo, Personal, Estudios..."
               required
               maxLength={50}
@@ -128,7 +128,7 @@ export function CategoryEditModal({ isOpen, onClose, category }: CategoryEditMod
 
           {/* Selector de color */}
           <div>
-            <label className="block text-sm text-purple-400 mb-3">
+            <label className="block text-sm text-[#8b7dd8] mb-3">
               Selecciona un color
             </label>
             <div className="grid grid-cols-4 gap-3">
@@ -139,8 +139,8 @@ export function CategoryEditModal({ isOpen, onClose, category }: CategoryEditMod
                   onClick={() => setSelectedColor(color.value)}
                   className={`relative aspect-square rounded-xl transition-all hover:scale-105 ${
                     selectedColor === color.value
-                      ? "ring-4 ring-purple-400 ring-offset-2"
-                      : "hover:ring-2 hover:ring-purple-200 hover:ring-offset-2"
+                      ? "ring-4 ring-[#8b7dd8] ring-offset-2"
+                      : "hover:ring-2 hover:ring-[#8b7dd8]/50 hover:ring-offset-2"
                   }`}
                   style={{ backgroundColor: color.value }}
                   title={color.name}
@@ -171,8 +171,8 @@ export function CategoryEditModal({ isOpen, onClose, category }: CategoryEditMod
           </div>
 
           {/* Preview */}
-          <div className="bg-purple-50 rounded-xl p-4">
-            <p className="text-xs text-purple-400 mb-2">Vista previa:</p>
+          <div className="bg-[#8b7dd8]/5 rounded-xl p-4">
+            <p className="text-xs text-[#8b7dd8] mb-2">Vista previa:</p>
             <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg">
               <div
                 className="w-4 h-4 rounded-full"
@@ -210,7 +210,7 @@ export function CategoryEditModal({ isOpen, onClose, category }: CategoryEditMod
               <button
                 type="submit"
                 disabled={isPending || !categoryName.trim()}
-                className="flex-1 px-4 py-3 bg-gradient-to-r from-purple-400 to-purple-500 text-white font-medium rounded-xl hover:from-purple-500 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-purple-200"
+                className="flex-1 px-4 py-3 bg-gradient-to-r from-[#9d8de8] to-[#8b7dd8] text-white font-medium rounded-xl hover:from-[#8b7dd8] hover:to-[#7a6bc0] focus:outline-none focus:ring-2 focus:ring-[#8b7dd8] focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#8b7dd8]/20"
               >
                 {isPending ? "Guardando..." : "Guardar Cambios"}
               </button>

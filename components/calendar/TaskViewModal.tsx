@@ -183,19 +183,19 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
         <div className="flex items-center justify-between px-8 pt-8 pb-4">
           <div className="flex items-center gap-3 flex-1">
             {isEditing ? (
-              <BookmarkPlus className="w-6 h-6 text-purple-500 flex-shrink-0" />
+              <BookmarkPlus className="w-6 h-6 text-[#8b7dd8] flex-shrink-0" />
             ) : (
-              <Bookmark className="w-6 h-6 text-purple-500 flex-shrink-0" />
+              <Bookmark className="w-6 h-6 text-[#8b7dd8] flex-shrink-0" />
             )}
             {isEditing ? (
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="text-2xl font-semibold text-purple-500 bg-transparent border-b-2 border-purple-200 focus:border-purple-400 focus:outline-none flex-1"
+                className="text-2xl font-semibold text-[#8b7dd8] bg-transparent border-b-2 border-[#8b7dd8]/20 focus:border-[#8b7dd8] focus:outline-none flex-1"
               />
             ) : (
-              <h2 className="text-2xl font-semibold text-purple-500">
+              <h2 className="text-2xl font-semibold text-[#8b7dd8]">
                 {task.title}
               </h2>
             )}
@@ -203,14 +203,14 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
 
           <div className="flex items-center gap-2">
             {/* Toggle completada */}
-            <div className="flex items-center gap-2 px-4 py-2 border border-purple-200 rounded-full">
-              <span className="text-sm text-purple-400">Completada</span>
+            <div className="flex items-center gap-2 px-4 py-2 border border-[#8b7dd8]/20 rounded-full">
+              <span className="text-sm text-[#8b7dd8]">Completada</span>
               <button
                 type="button"
                 onClick={handleToggleComplete}
                 disabled={isPending}
                 className={`relative w-12 h-6 rounded-full transition-colors ${
-                  isCompleted ? "bg-purple-500" : "bg-gray-300"
+                  isCompleted ? "bg-[#8b7dd8]" : "bg-gray-300"
                 }`}
               >
                 <div
@@ -237,7 +237,7 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
           <div className="space-y-6">
             {/* Categoría */}
             <div>
-              <label className="block text-sm text-purple-400 mb-2">
+              <label className="block text-sm text-[#8b7dd8] mb-2">
                 Categoría
               </label>
               {isEditing ? (
@@ -268,19 +268,19 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
 
             {/* Descripción */}
             <div>
-              <label className="block text-sm text-purple-400 mb-2">
+              <label className="block text-sm text-[#8b7dd8] mb-2">
                 Descripción
               </label>
               {isEditing ? (
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-4 py-3 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all resize-none"
+                  className="w-full px-4 py-3 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all resize-none"
                   rows={5}
                   placeholder="Este es un texto que describe la tarea, puede incluir detalles o instrucciones para llevarla a cabo."
                 />
               ) : (
-                <div className="px-4 py-3 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-600 min-h-[120px]">
+                <div className="px-4 py-3 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-600 min-h-[120px]">
                   {task.description || "Sin descripción"}
                 </div>
               )}
@@ -290,7 +290,7 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
             <div className="space-y-4">
               {/* Fecha de inicio */}
               <div className="flex items-center gap-4">
-                <label className="text-sm text-purple-400 w-32 flex-shrink-0">
+                <label className="text-sm text-[#8b7dd8] w-32 flex-shrink-0">
                   Fecha de inicio
                 </label>
                 <div className="relative flex-1">
@@ -299,15 +299,15 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                     value={formData.start_date}
                     onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
                     disabled={!isEditing}
-                    className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed [&::-webkit-calendar-picker-indicator]:opacity-0"
+                    className="w-full px-4 py-2.5 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed [&::-webkit-calendar-picker-indicator]:opacity-0"
                   />
-                  <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-300 pointer-events-none" />
+                  <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8b7dd8]/50 pointer-events-none" />
                 </div>
               </div>
 
               {/* Fecha de fin */}
               <div className="flex items-center gap-4">
-                <label className="text-sm text-purple-400 w-32 flex-shrink-0">
+                <label className="text-sm text-[#8b7dd8] w-32 flex-shrink-0">
                   Fecha de fin
                 </label>
                 <div className="relative flex-1">
@@ -316,9 +316,9 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                     value={formData.due_date}
                     onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
                     disabled={!isEditing}
-                    className="w-full px-4 py-2.5 bg-purple-50/50 border border-purple-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed [&::-webkit-calendar-picker-indicator]:opacity-0"
+                    className="w-full px-4 py-2.5 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all disabled:opacity-60 disabled:cursor-not-allowed [&::-webkit-calendar-picker-indicator]:opacity-0"
                   />
-                  <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-300 pointer-events-none" />
+                  <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8b7dd8]/50 pointer-events-none" />
                 </div>
               </div>
             </div>
@@ -348,7 +348,7 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                     type="button"
                     onClick={handleUpdate}
                     disabled={isPending}
-                    className="flex-1 px-4 py-2.5 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-xl hover:from-purple-500 hover:to-purple-600 transition-colors disabled:opacity-50 font-medium"
+                    className="flex-1 px-4 py-2.5 bg-gradient-to-r from-[#9d8de8] to-[#8b7dd8] text-white rounded-xl hover:from-[#8b7dd8] hover:to-[#7a6bc0] transition-colors disabled:opacity-50 font-medium"
                   >
                     {isPending ? "Guardando..." : "Guardar"}
                   </button>
@@ -367,7 +367,7 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                   <button
                     type="button"
                     onClick={() => setIsEditing(true)}
-                    className="flex-1 px-4 py-2.5 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-xl hover:from-purple-500 hover:to-purple-600 transition-colors font-medium"
+                    className="flex-1 px-4 py-2.5 bg-gradient-to-r from-[#9d8de8] to-[#8b7dd8] text-white rounded-xl hover:from-[#8b7dd8] hover:to-[#7a6bc0] transition-colors font-medium"
                   >
                     Editar
                   </button>
@@ -377,15 +377,15 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
           </div>
 
           {/* Columna derecha - Recomendaciones */}
-          <div className="lg:border-l lg:border-purple-100 lg:pl-6">
+          <div className="lg:border-l lg:border-[#8b7dd8]/20 lg:pl-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-purple-400">
+              <h3 className="text-lg font-semibold text-[#8b7dd8]">
                 Recomendaciones
               </h3>
               <button
                 onClick={handleGenerateRecommendations}
                 disabled={isGenerating || isPending}
-                className="flex items-center gap-2 px-3 py-1.5 bg-purple-500 text-white text-sm rounded-lg hover:bg-purple-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-3 py-1.5 bg-[#8b7dd8] text-white text-sm rounded-lg hover:bg-[#7a6bc0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isGenerating ? (
                   <>
@@ -404,12 +404,12 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
             <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
               {/* Mensaje de estado inicial */}
               {recommendations.length === 0 && !isGenerating && (
-                <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center">
-                  <Sparkles className="w-8 h-8 text-purple-400 mx-auto mb-2" />
-                  <p className="text-sm text-purple-600 font-medium">
+                <div className="bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl p-4 text-center">
+                  <Sparkles className="w-8 h-8 text-[#8b7dd8] mx-auto mb-2" />
+                  <p className="text-sm text-[#7a6bc0] font-medium">
                     Sin recomendaciones
                   </p>
-                  <p className="text-xs text-purple-400 mt-1">
+                  <p className="text-xs text-[#8b7dd8] mt-1">
                     Haz clic en "Generar con IA" para obtener recursos útiles
                   </p>
                 </div>
@@ -417,12 +417,12 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
 
               {/* Indicador de carga */}
               {isGenerating && (
-                <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center">
-                  <Loader2 className="w-8 h-8 text-purple-400 mx-auto mb-2 animate-spin" />
-                  <p className="text-sm text-purple-600 font-medium">
+                <div className="bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl p-4 text-center">
+                  <Loader2 className="w-8 h-8 text-[#8b7dd8] mx-auto mb-2 animate-spin" />
+                  <p className="text-sm text-[#7a6bc0] font-medium">
                     Buscando recursos...
                   </p>
-                  <p className="text-xs text-purple-400 mt-1">
+                  <p className="text-xs text-[#8b7dd8] mt-1">
                     Esto puede tomar unos segundos
                   </p>
                 </div>
@@ -432,7 +432,7 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
               {recommendations.map((rec) => (
                 <div
                   key={rec.id}
-                  className="bg-purple-50/50 border border-purple-100 rounded-xl p-3 group hover:bg-purple-50 transition-colors"
+                  className="bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl p-3 group hover:bg-[#8b7dd8]/10 transition-colors"
                 >
                   <div className="flex gap-3">
                     {/* Thumbnail si existe */}
@@ -452,7 +452,7 @@ export function TaskViewModal({ isOpen, onClose, task, categories }: TaskViewMod
                         href={rec.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm font-medium text-purple-600 hover:text-purple-700 flex items-start gap-2 group/link mb-1"
+                        className="text-sm font-medium text-[#7a6bc0] hover:text-[#6a5bb0] flex items-start gap-2 group/link mb-1"
                       >
                         <span className="flex-1 line-clamp-2">{rec.title}</span>
                         <ExternalLink className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 opacity-60 group-hover/link:opacity-100" />

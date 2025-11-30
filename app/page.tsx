@@ -2,6 +2,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { CalendarView } from "@/components/calendar/CalendarView";
+import { Guest } from "@/components/Guests";
 import { db } from "@/lib/db";
 import { startOfMonth, endOfMonth, addMonths } from "date-fns";
 
@@ -61,7 +62,7 @@ export default async function HomePage(props: PageProps) {
   const searchParams = await props.searchParams;
 
   if (!userId) {
-    redirect("/sign-in");
+    return <Guest />;
   }
 
   const now = new Date();
@@ -75,7 +76,7 @@ export default async function HomePage(props: PageProps) {
   ]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
+    <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-6">
         <CalendarView 
           initialTasks={tasks} 

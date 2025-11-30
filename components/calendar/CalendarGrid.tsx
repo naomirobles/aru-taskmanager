@@ -85,7 +85,7 @@ export function CalendarGrid({
         {WEEKDAYS.map((day) => (
           <div
             key={day}
-            className="text-center text-sm font-semibold text-purple-600 py-2"
+            className="text-center text-sm font-semibold text-[#8b7dd8] py-2"
           >
             {day}
           </div>
@@ -103,9 +103,9 @@ export function CalendarGrid({
               key={index}
               className={`min-h-[120px] border rounded-lg p-2 transition-all cursor-pointer ${
                 isCurrentMonth
-                  ? "bg-white border-gray-200 hover:border-purple-300 hover:shadow-md"
+                  ? "bg-white border-gray-200 hover:border-[#b8ace8] hover:shadow-md"
                   : "bg-gray-50 border-gray-100"
-              } ${isCurrentDay ? "ring-2 ring-purple-400" : ""}`}
+              } ${isCurrentDay ? "ring-2 ring-[#b8ace8]" : ""}`}
               onClick={() => onAddTask(day)}
             >
               <div className="flex justify-between items-start mb-2">
@@ -114,7 +114,7 @@ export function CalendarGrid({
                     isCurrentMonth ? "text-gray-700" : "text-gray-400"
                   } ${
                     isCurrentDay 
-                      ? "bg-purple-500 text-white rounded-full w-6 h-6 flex items-center justify-center" 
+                      ? "bg-[#8b7dd8] text-white rounded-full w-6 h-6 flex items-center justify-center" 
                       : ""
                   }`}
                 >
