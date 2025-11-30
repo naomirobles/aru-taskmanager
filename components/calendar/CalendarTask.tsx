@@ -34,7 +34,9 @@ export function CalendarTask({ task, onTaskClick }: CalendarTaskProps) {
         {task.estimated_duration && (
           <Clock className="w-3 h-3 flex-shrink-0" />
         )}
-        <span className="truncate font-medium">{task.title}</span>
+        <span className={`truncate font-medium ${task.is_completed ? "line-through" : ""}`}>
+          {task.title}
+        </span>
       </div>
     </div>
   );

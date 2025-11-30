@@ -89,7 +89,7 @@ export function TaskModal({ isOpen, onClose, selectedDate, categories }: TaskMod
         onClick={onClose}
       />
       
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="relative bg-white  dark:bg-slate-700 rounded-3xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-center pt-8 pb-6 relative">
           <div className="flex items-center gap-2">
@@ -141,7 +141,7 @@ export function TaskModal({ isOpen, onClose, selectedDate, categories }: TaskMod
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full px-4 py-3 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all resize-none"
+              className="w-full px-4 py-3 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700  dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all resize-none"
               rows={4}
               placeholder="Descripción de la tarea..."
             />
@@ -159,7 +159,7 @@ export function TaskModal({ isOpen, onClose, selectedDate, categories }: TaskMod
                   type="date"
                   value={formData.start_date}
                   onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all [&::-webkit-calendar-picker-indicator]:opacity-0"
+                  className="w-full px-4 py-2.5 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700  dark:text-white focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all [&::-webkit-calendar-picker-indicator]:opacity-0"
                 />
                 <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8b7dd8]/50 pointer-events-none" />
               </div>
@@ -175,7 +175,7 @@ export function TaskModal({ isOpen, onClose, selectedDate, categories }: TaskMod
                   type="date"
                   value={formData.due_date}
                   onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all [&::-webkit-calendar-picker-indicator]:opacity-0"
+                  className="w-full px-4 py-2.5 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700  dark:text-white focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all [&::-webkit-calendar-picker-indicator]:opacity-0"
                 />
                 <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8b7dd8]/50 pointer-events-none" />
               </div>
