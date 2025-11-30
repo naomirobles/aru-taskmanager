@@ -76,11 +76,11 @@ export default async function HomePage(props: PageProps) {
   ]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#290b9c]">
       <div className="container mx-auto p-6">
-        <CalendarView 
-          initialTasks={tasks} 
-          initialMonth={month} 
+        <CalendarView
+          initialTasks={tasks}
+          initialMonth={month}
           initialYear={year}
           categories={categories}
         />

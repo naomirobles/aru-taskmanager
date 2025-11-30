@@ -4,12 +4,13 @@ import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 import { Clock, Settings } from "lucide-react";
 import { Calendar, GraduationCap } from "lucide-react";
 import ProfilePublicMetadataEditor from "./ProfilePublicMetadataEditor";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const { isSignedIn, user } = useUser();
 
   return (
-    <header className="bg-gradient-to-r from-[#8b7dd8] to-[#9d8de8] px-6 py-4 shadow-lg">
+    <header className="bg-gradient-to-r from-[#8b7dd8] to-[#9d8de8] dark:from-slate-800 dark:to-slate-700 px-6 py-4 shadow-lg transition-colors duration-200">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo y título */}
         <div className="flex items-center gap-3">
@@ -23,6 +24,8 @@ export default function Header() {
 
         {/* Sección de usuario */}
         <div className="flex items-center gap-4">
+          {/* Botón de tema */}
+          <ThemeToggle />
           {isSignedIn ? (
             <>
               {/* Información del usuario */}

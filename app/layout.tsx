@@ -5,6 +5,7 @@ import Header from '@/components/header';
 import './globals.css';
 
 import ClerkProviderWrapper from '@/components/ClerkProviderWrapper';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,11 +29,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ClerkProviderWrapper>
-          <Header />
-          {children}
-        </ClerkProviderWrapper>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('theme') ||
+                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200`}>
+        <ThemeProvider>
+          <ClerkProviderWrapper>
+            <Header />
+            {children}
+          </ClerkProviderWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );

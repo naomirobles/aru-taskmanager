@@ -4,12 +4,13 @@ import React from 'react';
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { Clock, Grid3X3, Calendar, Target, Search, Sparkles, Rocket, Palette, Sprout, ArrowRight } from 'lucide-react';
 import Link from "next/link"; // Assuming Link might be used for internal navigation, though not explicitly in current template
+import ThemeToggle from "./ThemeToggle";
 
 export function Guest() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-[#312d40] transition-colors duration-200">
       {/* Navbar - Simplified for Guests component, assuming main Header is separate */}
-      <nav className="fixed top-0 w-full bg-gradient-to-r from-[#8b7dd8] to-[#9d8de8] shadow-lg z-50">
+      <nav className="fixed top-0 w-full bg-gradient-to-r from-[#8b7dd8] to-[#9d8de8] dark:from-[#312d40] dark:to-[#312d40] shadow-lg z-50 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2 text-white text-2xl font-semibold">
@@ -17,6 +18,7 @@ export function Guest() {
               <span>aru:taskmanager</span>
             </div>
             <div className="flex gap-3">
+              <ThemeToggle />
               <SignInButton mode="modal" forceRedirectUrl="/calendar">
                 <button className="px-6 py-2 rounded-lg bg-white/20 text-white border-2 border-white font-medium hover:bg-white hover:text-[#8b7dd8] transition-all duration-300">
                   Iniciar Sesión
@@ -33,7 +35,7 @@ export function Guest() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#8b7dd8] to-[#b8ace8] text-white overflow-hidden">
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#8b7dd8] to-[#b8ace8] dark:bg-[#290b9c] dark:bg-none text-white overflow-hidden">
         {/* Patrón de fondo */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
@@ -68,84 +70,84 @@ export function Guest() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#312d40] transition-colors duration-200">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800 dark:text-gray-100">
             Características Principales
           </h2>
-          <p className="text-xl text-center text-gray-600 mb-16">
+          <p className="text-xl text-center text-gray-600 dark:text-gray-300 mb-16">
             Todo lo que necesitas para mantener tus proyectos en orden
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+            <div className="group bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b7dd8] to-[#b8ace8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <div className="w-16 h-16 bg-gradient-to-br from-[#ffc5d0] to-[#ffb3c1] rounded-xl flex items-center justify-center text-3xl mb-6">
                 <Grid3X3 className="w-8 h-8 text-pink-600" /> {/* Changed emoji to Lucide icon */}
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Vista de Lista Organizada</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Vista de Lista Organizada</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Visualiza todas tus tareas organizadas por categorías con colores distintivos. Filtra y busca fácilmente lo que necesitas.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+            <div className="group bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b7dd8] to-[#b8ace8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <div className="w-16 h-16 bg-gradient-to-br from-[#fff9c4] to-[#fff176] rounded-xl flex items-center justify-center text-3xl mb-6">
                 <Calendar className="w-8 h-8 text-yellow-600" /> {/* Changed emoji to Lucide icon */}
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Calendario Inteligente</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Calendario Inteligente</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Planifica tus tareas con nuestra vista de calendario mensual. Visualiza fechas de inicio y fin con claridad.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+            <div className="group bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b7dd8] to-[#b8ace8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <div className="w-16 h-16 bg-gradient-to-br from-[#b3e5fc] to-[#81d4fa] rounded-xl flex items-center justify-center text-3xl mb-6">
                 <Target className="w-8 h-8 text-cyan-600" /> {/* Changed emoji to Lucide icon */}
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Categorías Personalizables</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Categorías Personalizables</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Crea categorías ilimitadas y personaliza los colores para organizar tus tareas según tus necesidades.
               </p>
             </div>
 
             {/* Feature 4 */}
-            <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+            <div className="group bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b7dd8] to-[#b8ace8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <div className="w-16 h-16 bg-gradient-to-br from-[#e1bee7] to-[#ce93d8] rounded-xl flex items-center justify-center text-3xl mb-6">
                 <Sparkles className="w-8 h-8 text-purple-600" /> {/* Changed emoji to Lucide icon */}
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Recomendaciones IA</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Recomendaciones IA</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Recibe sugerencias inteligentes para optimizar tu productividad y completar tus tareas de manera eficiente.
               </p>
             </div>
 
             {/* Feature 5 */}
-            <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+            <div className="group bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b7dd8] to-[#b8ace8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <div className="w-16 h-16 bg-gradient-to-br from-[#c8e6c9] to-[#a5d6a7] rounded-xl flex items-center justify-center text-3xl mb-6">
                 <Search className="w-8 h-8 text-green-600" /> {/* Changed emoji to Lucide icon */}
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Búsqueda Avanzada</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Búsqueda Avanzada</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Encuentra cualquier tarea al instante con nuestra potente función de búsqueda con filtros inteligentes.
               </p>
             </div>
 
             {/* Feature 6 */}
-            <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+            <div className="group bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b7dd8] to-[#b8ace8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <div className="w-16 h-16 bg-gradient-to-br from-[#d1c4e9] to-[#b39ddb] rounded-xl flex items-center justify-center text-3xl mb-6">
                 <Sparkles className="w-8 h-8 text-indigo-600" /> {/* Changed emoji to Lucide icon */}
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Interfaz Intuitiva</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Interfaz Intuitiva</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Diseño moderno y limpio que hace que la gestión de tareas sea simple y agradable.
               </p>
             </div>
@@ -154,20 +156,20 @@ export function Guest() {
       </section>
 
       {/* About Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#312d40] transition-colors duration-200">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800 dark:text-gray-100">
                 Sobre aru:taskmanager
               </h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                 Nacimos con la misión de simplificar la gestión de tareas y proyectos para personas y equipos. Creemos que la productividad no tiene que ser complicada.
               </p>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                 Nuestra plataforma combina un diseño intuitivo con características poderosas, permitiéndote concentrarte en lo que realmente importa: completar tus objetivos.
               </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                 Ya sea que estés gestionando proyectos personales, coordinando equipos o simplemente organizando tu día a día, aru:taskmanager se adapta a tu flujo de trabajo.
               </p>
             </div>
@@ -206,45 +208,45 @@ export function Guest() {
       </section>
 
       {/* Objectives Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#312d40] transition-colors duration-200">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800 dark:text-gray-100">
             Nuestros Objetivos
           </h2>
-          <p className="text-xl text-center text-gray-600 mb-16">
+          <p className="text-xl text-center text-gray-600 dark:text-gray-300 mb-16">
             Comprometidos con tu productividad y éxito
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+            <div className="group bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b7dd8] to-[#b8ace8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <div className="w-16 h-16 bg-gradient-to-br from-[#e1bee7] to-[#ce93d8] rounded-xl flex items-center justify-center mb-6">
                 <Rocket className="w-8 h-8 text-purple-700" />
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Maximizar Productividad</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Maximizar Productividad</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Ayudarte a lograr más en menos tiempo con herramientas inteligentes y flujos de trabajo optimizados.
               </p>
             </div>
 
-            <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+            <div className="group bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b7dd8] to-[#b8ace8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <div className="w-16 h-16 bg-gradient-to-br from-[#b3e5fc] to-[#81d4fa] rounded-xl flex items-center justify-center mb-6">
                 <Palette className="w-8 h-8 text-blue-700" />
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Experiencia Excepcional</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Experiencia Excepcional</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Crear una interfaz hermosa y funcional que haga que gestionar tareas sea un placer, no una carga.
               </p>
             </div>
 
-            <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+            <div className="group bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#8b7dd8] to-[#b8ace8] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               <div className="w-16 h-16 bg-gradient-to-br from-[#c8e6c9] to-[#a5d6a7] rounded-xl flex items-center justify-center mb-6">
                 <Sprout className="w-8 h-8 text-green-700" />
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Crecimiento Continuo</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Crecimiento Continuo</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Evolucionar constantemente con nuevas características basadas en las necesidades de nuestros usuarios.
               </p>
             </div>
@@ -253,7 +255,7 @@ export function Guest() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#8b7dd8] to-[#b8ace8] text-white text-center">
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#8b7dd8] to-[#b8ace8] dark:bg-[#290b9c] dark:bg-none text-white overflow-hidden">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             ¿Listo para transformar tu productividad?
@@ -270,7 +272,7 @@ export function Guest() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12 px-4 sm:px-6 lg:px-8">
+      <footer className="bg-gray-800 dark:bg-slate-950 text-white py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>

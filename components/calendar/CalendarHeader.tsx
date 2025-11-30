@@ -28,7 +28,7 @@ export function CalendarHeader({
   onAddTask,
 }: CalendarHeaderProps) {
   return (
-    <div className="bg-gradient-to-r from-[#8b7dd8] to-[#9d8de8] px-6 py-4">
+    <div className="bg-gradient-to-r from-[#8b7dd8] to-[#9d8de8] dark:from-slate-700 dark:to-slate-600 px-6 py-4 transition-colors duration-200">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           {view === "month" && (

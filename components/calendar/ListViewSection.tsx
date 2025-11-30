@@ -26,22 +26,22 @@ export function ListViewSection({
   // Obtener el color de fondo basado en el color de la categoría
   const getBgColorClass = (color: string) => {
     const colorMap: Record<string, string> = {
-      '#EF4444': 'bg-red-100',
-      '#F59E0B': 'bg-amber-100', 
-      '#10B981': 'bg-emerald-100',
-      '#3B82F6': 'bg-blue-100',
-      '#8B5CF6': 'bg-purple-100',
-      '#EC4899': 'bg-pink-100',
-      '#14B8A6': 'bg-teal-100',
-      '#F97316': 'bg-orange-100',
+      '#EF4444': 'bg-red-100 dark:bg-red-900/30',
+      '#F59E0B': 'bg-amber-100 dark:bg-amber-900/30',
+      '#10B981': 'bg-emerald-100 dark:bg-emerald-900/30',
+      '#3B82F6': 'bg-blue-100 dark:bg-blue-900/30',
+      '#8B5CF6': 'bg-purple-100 dark:bg-purple-900/30',
+      '#EC4899': 'bg-pink-100 dark:bg-pink-900/30',
+      '#14B8A6': 'bg-teal-100 dark:bg-teal-900/30',
+      '#F97316': 'bg-orange-100 dark:bg-orange-900/30',
     };
-    return colorMap[color] || 'bg-gray-100';
+    return colorMap[color] || 'bg-gray-100 dark:bg-gray-700/30';
   };
 
   const bgColorClass = getBgColorClass(category.color || '#10B981');
 
   return (
-    <div className={`rounded-2xl p-6 ${bgColorClass}`}>
+    <div className={`rounded-2xl p-6 transition-colors duration-200 ${bgColorClass}`}>
       {/* Header de la sección - Ahora clicable */}
       <button
         onClick={() => onCategoryClick(category)}
@@ -51,13 +51,13 @@ export function ListViewSection({
           className="w-4 h-4 rounded-full flex-shrink-0"
           style={{ backgroundColor: category.color || '#10B981' }}
         />
-        <h3 className="text-lg font-semibold text-gray-800 flex-1 text-left">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 flex-1 text-left">
           {category.name}
         </h3>
-        <span className="text-sm text-gray-600 bg-white px-3 py-1 rounded-full">
+        <span className="text-sm text-gray-600 dark:text-gray-300 bg-white dark:bg-slate-700 px-3 py-1 rounded-full">
           {tasks.length}
         </span>
-        <Settings className="w-4 h-4 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Settings className="w-4 h-4 text-gray-500 dark:text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
       </button>
 
       {/* Lista de tareas */}
