@@ -71,7 +71,7 @@ export function CategoryModal({ isOpen, onClose }: CategoryModalProps) {
         onClick={onClose}
       />
       
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md">
+      <div className="relative bg-white dark:bg-slate-700  rounded-3xl shadow-2xl w-full max-w-md">
         {/* Header */}
         <div className="flex items-center justify-center pt-8 pb-6 relative">
           <div className="flex items-center gap-2">
@@ -100,7 +100,7 @@ export function CategoryModal({ isOpen, onClose }: CategoryModalProps) {
               type="text"
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
-              className="w-full px-4 py-3 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700  dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all"
               placeholder="Ej: Trabajo, Personal, Estudios..."
               required
               maxLength={50}
@@ -154,12 +154,12 @@ export function CategoryModal({ isOpen, onClose }: CategoryModalProps) {
           {/* Preview */}
           <div className="bg-[#8b7dd8]/5 rounded-xl p-4">
             <p className="text-xs text-[#8b7dd8] mb-2">Vista previa:</p>
-            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-700  rounded-lg">
               <div
                 className="w-4 h-4 rounded-full"
                 style={{ backgroundColor: selectedColor }}
               />
-              <span className="text-gray-700 font-medium">
+              <span className="text-gray-700  dark:text-white font-medium">
                 {categoryName || "Nombre de categoría"}
               </span>
             </div>

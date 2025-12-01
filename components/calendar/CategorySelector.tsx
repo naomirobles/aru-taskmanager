@@ -116,17 +116,17 @@ export function CategorySelector({
         <span className={selectedCategory ? "text-gray-700" : "text-gray-400"}>
           {selectedCategory ? selectedCategory.name : "Selecciona una categoría"}
         </span>
-        <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDown className={`w-5 h-5 text-gray-400 dark:text-gray-700 transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute z-10 w-full mt-2 bg-white border border-purple-100 rounded-xl shadow-lg max-h-64 overflow-y-auto">
+        <div className="absolute z-10 w-full mt-2 bg-white border dark:bg-slate-700  border-purple-100 rounded-xl shadow-lg max-h-64 overflow-y-auto">
           {/* Lista de categorías existentes */}
           {categories.map((category) => (
             <div
               key={category.id}
-              className="group hover:bg-purple-50 transition-colors"
+              className="group hover:bg-purple-50 dark:hover:bg-slate-600 transition-colors"
             >
               {editingCategoryId === category.id ? (
                 // Modo edición
@@ -160,7 +160,7 @@ export function CategorySelector({
                   <button
                     type="button"
                     onClick={cancelEditing}
-                    className="p-1 hover:bg-gray-100 rounded text-gray-600"
+                    className="p-1 hover:bg-gray-100 rounded text-gray-600" 
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -180,7 +180,7 @@ export function CategorySelector({
                       className="w-3 h-3 rounded-full flex-shrink-0"
                       style={{ backgroundColor: category.color || "#8B5CF6" }}
                     />
-                    <span className="text-sm text-gray-700">{category.name}</span>
+                    <span className="text-sm text-gray-700  dark:text-white">{category.name}</span>
                   </button>
                   
                   {/* Acciones (aparecen en hover) */}
@@ -243,7 +243,7 @@ export function CategorySelector({
                   setIsCreating(false);
                   setNewCategoryName("");
                 }}
-                className="p-1 hover:bg-gray-100 rounded text-gray-600"
+                className="p-1 hover:bg-gray-100 rounded text-gray-600 dark:text-gray-600 "
               >
                 <X className="w-4 h-4" />
               </button>
@@ -252,7 +252,7 @@ export function CategorySelector({
             <button
               type="button"
               onClick={() => setIsCreating(true)}
-              className="w-full flex items-center gap-2 px-4 py-3 text-purple-500 hover:bg-purple-50 transition-colors border-t border-purple-100"
+              className="w-full flex items-center gap-2 px-4 py-3 text-purple-500 hover:bg-purple-50 dark:hover:bg-slate-600 transition-colors border-t border-purple-100"
             >
               <Plus className="w-4 h-4" />
               <span className="text-sm font-medium">Crear nueva categoría</span>
