@@ -7,10 +7,6 @@ const isPublicRoute = createRouteMatcher(['/', '/sign-in(.*)', '/sign-up(.*)'])
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { isAuthenticated, sessionClaims, redirectToSignIn } = await auth()
 
-  console.log(`Middleware processing: ${req.nextUrl.pathname}`)
-  console.log(`Auth status: ${isAuthenticated}`)
-  console.log(`Onboarding status: ${sessionClaims?.metadata?.onboardingComplete}`)
-
   // For users visiting /onboarding, don't try to redirect
   if (isAuthenticated && isOnboardingRoute(req)) {
     return NextResponse.next()
@@ -19,9 +15,12 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   // If the user isn't signed in and the route is private, redirect to sign-in
   if (!isAuthenticated && !isPublicRoute(req)) return redirectToSignIn({ returnBackUrl: req.url })
 
+  // Check for a header to bypass onboarding during Playwright tests
+  const isPlaywrightTest = req.headers.get('X-Playwright-Test') === '1';
+
   // Catch users who do not have `onboardingComplete: true` in their publicMetadata
-  // Redirect them to the /onboarding route to complete onboarding
-  if (isAuthenticated && !sessionClaims?.metadata?.onboardingComplete) {
+  // Redirect them to the /onboarding route, unless it's a Playwright test.
+  if (isAuthenticated && !sessionClaims?.metadata?.onboardingComplete && !isPlaywrightTest) {
     const onboardingUrl = new URL('/onboarding', req.url)
     return NextResponse.redirect(onboardingUrl)
   }

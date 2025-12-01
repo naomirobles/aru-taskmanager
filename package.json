@@ -21,6 +21,8 @@
     "sonner": "^2.0.7"
   },
   "devDependencies": {
+    "@clerk/testing": "^1.13.19",
+    "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
