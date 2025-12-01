@@ -118,7 +118,7 @@ export function TaskModal({ isOpen, onClose, selectedDate, categories }: TaskMod
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-4 py-3 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all"
+              className="w-full px-4 py-3 bg-[#8b7dd8]/5 border border-[#8b7dd8]/20 rounded-xl text-gray-700  dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#8b7dd8]/50 focus:border-transparent transition-all"
               placeholder="Comer verdura"
               required
             />
