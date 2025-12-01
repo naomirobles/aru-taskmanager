@@ -23,18 +23,35 @@ export default defineConfig({
   },
   projects: [
     {
-      name: "global setup",
-      testMatch: /global\.setup\.ts/,
+      name: "setup",
+      testMatch: /.*\.setup\.ts/,
     },
     {
-      name: "Authenticated tests",
-      testMatch: /.*authenticated.spec.ts/,
+      name: "calendar tests",
+      testMatch: /.*e2e\/calendar\/.*\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
-        // Use prepared auth state.
         storageState: "playwright/.clerk/user.json",
       },
-      dependencies: ["global setup"],
+      dependencies: ["setup"],
+    },
+    {
+      name: "tasks tests",
+      testMatch: /.*e2e\/tasks\/.*\.spec\.ts/,
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "playwright/.clerk/user.json",
+      },
+      dependencies: ["setup"],
+    },
+    {
+      name: "categories tests",
+      testMatch: /.*e2e\/categories\/.*\.spec\.ts/,
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "playwright/.clerk/user.json",
+      },
+      dependencies: ["setup"],
     },
   ],
 });
