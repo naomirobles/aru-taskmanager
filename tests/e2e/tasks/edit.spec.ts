@@ -1,10 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { 
-  navigateToCalendar, 
+import {
+  navigateToCalendar,
   openNewTaskModal,
   selectFirstCategory,
   waitForModalClose,
-  generateUniqueName
+  generateUniqueName,
+  switchToListView
 } from "../../helpers/test-helpers";
 import { BUTTONS, PLACEHOLDERS, SELECTORS, TIMEOUTS } from "../../utils/constants";
 
@@ -12,7 +13,6 @@ test.describe("Editar Tareas", () => {
   test.beforeEach(async ({ page }) => {
     await navigateToCalendar(page);
   });
-
   test("debería poder editar una tarea existente", async ({ page }) => {
     const uniqueTitle = generateUniqueName('Edit Task');
 
@@ -33,12 +33,17 @@ test.describe("Editar Tareas", () => {
 
     // Esperar a que se cierre el modal y se cree la tarea
     await waitForModalClose(page, 'Nueva Tarea');
-    await page.waitForTimeout(TIMEOUTS.LONG);
+    await page.waitForLoadState('networkidle'); // 👈 Mejor que timeout fijo
+
+    // 🔧 FIX: Cambiar a vista de lista donde todas las tareas son visibles
+    await switchToListView(page);
 
     // Buscar y hacer clic en la tarea creada
     const taskElement = page.getByText(uniqueTitle).first();
     await expect(taskElement).toBeVisible({ timeout: 10000 });
     await taskElement.click();
+
+
 
     // Esperar a que se abra el modal de visualización
     await page.waitForTimeout(TIMEOUTS.MEDIUM);
